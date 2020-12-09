@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFireAuth, PERSISTENCE } from '@angular/fire/auth';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -23,16 +23,16 @@ export class LoginComponent implements OnInit {
   } = {}
 
   constructor(
-    private auth: AngularFireAuth,
+    private authService: AuthService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.auth.user.subscribe(res => {
+    this.authService.isUserLogged().subscribe(res => {
       if (res) {
         this.router.navigateByUrl('/setup');
       }
-    });
+    }).unsubscribe()
   }
 
   handleLogin() {
@@ -40,7 +40,10 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.auth.signInWithEmailAndPassword(this.model.email, this.model.password).then(
+    this.authService.login({
+      email: this.model.email,
+      password: this.model.password
+    }).then(
       () => this.router.navigateByUrl('/setup')
     )
   }

@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { NgForm, Validator, ValidatorFn } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  destroy$: Subject<Boolean> = new Subject<boolean>();
   @ViewChild(NgForm) form: NgForm;
 
   checkValidity():boolean {
@@ -19,25 +21,25 @@ export class RegisterComponent implements OnInit {
 
   hidePassword: boolean = true;
 
-  model: {
-    email?: string,
-    password?: string,
-    passwordConfirmation?: string,
-    idnp?: string
-  } = {}
+  model = {
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+    idnp: ''
+  }
 
   constructor(
-    private auth: AngularFireAuth,
-    private fireDb: AngularFireDatabase,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.auth.user.subscribe(res => {
+    this.authService.isUserLogged()
+    .subscribe(res => {
       if (res) {
         this.router.navigateByUrl('/setup');
       }
-    });
+    }).unsubscribe();
   }
 
   handleRegister() {
@@ -45,13 +47,10 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.auth.createUserWithEmailAndPassword(this.model.email, this.model.password).then(
-      () => {
-        const update = {
-          'idnp': parseInt(this.model.idnp, 10)
-        }
-        this.fireDb.database.ref().child('users').push(update);
-      }
-    )
+    this.authService.register({
+      email: this.model.email,
+      password: this.model.password,
+      idnp: this.model.idnp
+    })
   }
 }
