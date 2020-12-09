@@ -1,0 +1,30 @@
+<div class="root">
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                Log In
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card__content">
+            <form #loginForm='ngForm' (submit)="handleLogin()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" autocomplete="email" required name="email" [(ngModel)]="model.email" placeholder="Placeholder">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput autocomplete="current-password" required name="password" [(ngModel)]="model.password" [type]="hidePassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'hide password'"
+                        [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                
+                <div class="button-group">
+                    <a routerLink="../register" mat-button color="primary">Register</a>
+                    <button mat-button mat-flat-button color="primary" type="submit">login</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

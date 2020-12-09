@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "idoc-6c0f7": {
+      "hosting": {
+        "idoc": [
+          "idoc-6c0f7"
+        ]
+      }
+    }
+  }
+}

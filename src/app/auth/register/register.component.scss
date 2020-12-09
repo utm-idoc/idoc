@@ -1,0 +1,21 @@
+.root {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+
+    max-width: 320px;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+    }
+}

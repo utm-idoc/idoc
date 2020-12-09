@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.button-group {
+    display: flex;
+    margin: 0 -4px;
+
+    & > button {
+        flex-grow: 1;
+
+        margin: 0 4px;
+    }
+}

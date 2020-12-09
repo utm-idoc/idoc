@@ -1,0 +1,46 @@
+<div class="root">
+    <mat-card class="card">
+        <mat-card-header>
+            <mat-card-title>
+                Register
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card__content">
+            <form #registrationForm="ngForm" (submit)="handleRegister()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput required type="email" name="email" autocomplete="email" [(ngModel)]="model.email" placeholder="Placeholder">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input minlength="8" required matInput name="password" autocomplete="new-password" [(ngModel)]="model.password" [type]="hidePassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'hide password'"
+                        [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Confirm Password</mat-label>
+                    <input minlength="8" required matInput name="password-confirmation" autocomplete="new-password" [(ngModel)]="model.passwordConfirmation" [type]="hidePassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'hide password'"
+                        [attr.aria-pressed]="hidePassword">
+                        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>IDNP</mat-label>
+                    <input matInput required minlength="13" maxlength="13" type="text" name="idnp" autocomplete="off" [(ngModel)]="model.idnp"
+                        placeholder="Placeholder">
+                </mat-form-field>
+                
+                <div class="button-group">
+                    <a routerLink="../login" mat-button color="primary">Log In</a>
+                    <button mat-button mat-flat-button color="primary" type="submit">Register</button>
+                </div>
+            </form>
+            <!-- </mat-form-field> -->
+        </mat-card-content>
+    </mat-card>
+</div>
