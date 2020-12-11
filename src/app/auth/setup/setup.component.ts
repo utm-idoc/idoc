@@ -20,7 +20,6 @@ export class SetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.user.subscribe(res => {
-      console.log(res);
     });
   }
 }

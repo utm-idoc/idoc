@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -28,11 +28,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.isUserLogged().subscribe(res => {
-      if (res) {
-        this.router.navigateByUrl('/setup');
-      }
-    }).unsubscribe()
   }
 
   handleLogin() {
@@ -44,7 +39,7 @@ export class LoginComponent implements OnInit {
       email: this.model.email,
       password: this.model.password
     }).then(
-      () => this.router.navigateByUrl('/setup')
+      () => this.router.navigateByUrl('/cabinet')
     )
   }
 

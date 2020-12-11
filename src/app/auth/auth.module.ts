@@ -11,8 +11,6 @@ import { AuthComponent } from './auth.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { SetupComponent } from './setup/setup.component';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +22,6 @@ import { AuthService } from './auth.service';
   imports: [
     CommonModule,
     FormsModule,
-    AngularFireDatabaseModule,
     AuthRoutingModule,
     MatButtonModule,
     MatInputModule,
@@ -38,7 +35,6 @@ import { AuthService } from './auth.service';
     SetupComponent
   ],
   providers: [
-    AuthService
   ]
 })
 export class AuthModule { }

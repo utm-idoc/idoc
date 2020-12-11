@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
@@ -15,7 +14,6 @@ export class RegisterComponent implements OnInit {
   @ViewChild(NgForm) form: NgForm;
 
   checkValidity():boolean {
-    console.log(this.form.valid)
     return  this.form.valid && (this.model.password === this.model.passwordConfirmation);
   }
 
@@ -34,12 +32,6 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.isUserLogged()
-    .subscribe(res => {
-      if (res) {
-        this.router.navigateByUrl('/setup');
-      }
-    }).unsubscribe();
   }
 
   handleRegister() {
@@ -51,6 +43,8 @@ export class RegisterComponent implements OnInit {
       email: this.model.email,
       password: this.model.password,
       idnp: this.model.idnp
-    })
+    }).then(
+      () => this.router.navigateByUrl('/cabinet')
+    )
   }
 }
