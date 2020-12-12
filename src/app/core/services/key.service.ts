@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IkeysResponse, IEncryptResponse } from '../models/key.model';
 
-const api = 'http://localhost:4201';
+const api = '/api';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,8 @@ export class KeyService {
 
   encrypt(message: string, key: string): Promise<IEncryptResponse> {
     return <Promise<IEncryptResponse>> this.http.post(`${api}/encrypt`, {
-      body: {
-        publicKey: key,
-        content: message
-      }
+      publicKey: key,
+      content: message
     }).toPromise()
   }
 

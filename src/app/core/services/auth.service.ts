@@ -35,6 +35,8 @@ export class AuthService {
       firebaseUser => {
         const uid = firebaseUser.uid;
 
+
+
         return this.keyService.getKeys()
         .then(keys => {
           const updates = {}
@@ -43,6 +45,8 @@ export class AuthService {
             'publicKey': keys.publicKey,
             'privateKey': keys.privateKey
           }
+
+          this.keyService.encrypt('test', keys.publicKey);
 
           console.log(updates);
 
