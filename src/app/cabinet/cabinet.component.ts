@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/services/auth.service';
 
 import { DocumentService } from '../core/services/document.service';
+import { KeyService } from '../core/services/key.service';
 
 @Component({
   selector: 'app-cabinet',
@@ -13,7 +14,8 @@ export class CabinetComponent implements OnInit {
 
   constructor(
     private documentService: DocumentService,
-    private authService: AuthService
+    private authService: AuthService,
+    private keysService: KeyService
   ) { }
 
   ngOnInit(): void {

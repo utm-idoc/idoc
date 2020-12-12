@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable } from 'rxjs';
 import { IUserLogin, IUserRegistration } from '../models/user.model';
 import firebase from 'firebase/app';
+import { KeyService } from './key.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class AuthService {
   constructor(
     private auth: AngularFireAuth,
     private fireDb: AngularFireDatabase,
+    private keyService: KeyService
   ) {}
 
   isUserLogged() {
@@ -32,14 +33,21 @@ export class AuthService {
       () => this.auth.currentUser
     ).then(
       firebaseUser => {
-        const uid = firebaseUser.uid
+        const uid = firebaseUser.uid;
 
-        const updates = {}
-        updates[`/users/${uid}`] = {
-          'idnp': user.idnp
-        }
+        return this.keyService.getKeys()
+        .then(keys => {
+          const updates = {}
+          updates[`/users/${uid}`] = {
+            'idnp': user.idnp,
+            'publicKey': keys.publicKey,
+            'privateKey': keys.privateKey
+          }
 
-        return this.fireDb.database.ref().update(updates);
+          console.log(updates);
+
+          return this.fireDb.database.ref().update(updates);
+        });
       }
     )
   }
