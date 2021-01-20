@@ -34,21 +34,24 @@ export class AuthService {
     ).then(
       firebaseUser => {
         const uid = firebaseUser.uid;
-
+        let keys;
 
 
         return this.keyService.getKeys()
-        .then(keys => {
+        .then(res => {
+          keys = res;
+          return res.publicKey;
+        })
+        .then( publicKey =>
+          this.keyService.encrypt(user.idnp, publicKey)
+        )
+        .then(res => {
           const updates = {}
           updates[`/users/${uid}`] = {
-            'idnp': user.idnp,
+            'idnp': res.content,
             'publicKey': keys.publicKey,
             'privateKey': keys.privateKey
           }
-
-          this.keyService.encrypt('test', keys.publicKey);
-
-          console.log(updates);
 
           return this.fireDb.database.ref().update(updates);
         });

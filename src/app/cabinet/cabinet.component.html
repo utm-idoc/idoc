@@ -1,2 +1,16 @@
 <app-header></app-header>
-<button (click)="handleClick()">Click</button>
+<div class="container">
+    <div class="header">
+        <h2>My documents</h2>
+        <button mat-raised-button color="primary" (click)="handleClick()">Request</button>
+    </div>
+    <mat-card class="document-item" *ngFor="let document of documents; index as i">
+        <div class="document-content">
+            <h3 class="document-type">{{document.type}}</h3>
+            <div>
+                <p *ngFor="let item of getDocument(i)|keyvalue">{{item.key}}:{{item.value}}</p>
+            </div>
+            <!-- <button class="btn" color="primary" (click)="handleDocumentCLick(i)">View Content</button> -->
+        </div>
+    </mat-card>
+</div>

@@ -23,7 +23,8 @@ export class RegisterComponent implements OnInit {
     email: '',
     password: '',
     passwordConfirmation: '',
-    idnp: ''
+    idnp: '',
+    gdpr: ''
   }
 
   constructor(

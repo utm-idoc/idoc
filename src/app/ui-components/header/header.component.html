@@ -4,8 +4,8 @@
             IDoc
         </div>
         <div class="actions">
-            <a class="actions__item">My Documents</a>
-            <a class="actions__item">New Document</a>
+            <button mat-button [routerLink]="['/cabinet']" class="actions__item">Cabinet</button>
+            <button mat-button [routerLink]="['/new-document']" class="actions__item">New Document</button>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

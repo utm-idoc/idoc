@@ -34,6 +34,8 @@
                     <input matInput required minlength="13" maxlength="13" type="text" name="idnp" autocomplete="off" [(ngModel)]="model.idnp"
                         placeholder="Placeholder">
                 </mat-form-field>
+
+                <mat-checkbox required name="gdpr" [(ngModel)]="model.gdpr" color="primary">I have read the terms and conditions</mat-checkbox>
                 
                 <div class="button-group">
                     <a routerLink="../login" mat-button color="primary">Log In</a>

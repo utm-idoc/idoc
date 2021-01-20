@@ -11,6 +11,7 @@ import { AuthComponent } from './auth.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule } from '@angular/forms';
 import { SetupComponent } from './setup/setup.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SetupComponent } from './setup/setup.component';
     MatIconModule,
     MatFormFieldModule,
     MatCardModule,
+    MatCheckboxModule
   ],
   exports: [
     AuthComponent,
